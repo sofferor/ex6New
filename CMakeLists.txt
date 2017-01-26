@@ -29,7 +29,10 @@ set(SOURCE_FILES
         Trip.h Trip.cpp
         Time.cpp Time.h
         DetailsDriver.cpp DetailsDriver.h
-        Serialization.h Serialization.cpp ServerRun.cpp ServerRun.h)
+        Serialization.h Serialization.cpp
+        ServerRun.cpp ServerRun.h
+        ThreadsPool.cpp ThreadsPool.h
+        Task.cpp Task.h)
 
 set(CLIENT_FILES
         Point.cpp Point.h
