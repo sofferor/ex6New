@@ -385,4 +385,7 @@ ServerRun::~ServerRun() {
     if (matrix2D != NULL) {
         delete (matrix2D);
     }
+    if (tp != NULL) {
+        delete (tp);
+    }
 }
