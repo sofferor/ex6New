@@ -45,6 +45,8 @@ void ServerRun::initialize() {
             (matrix2D->getNodeInMatrix((Node*) &obstacle))->setObstacle(true);
         }
     }
+
+    tp = new ThreadsPool(5);
 }
 
 // begin the server operation.
@@ -116,7 +118,9 @@ void ServerRun::begin() {
                 tripDetails->server = this;
                 tripDetails->trip = ride;
 
-
+                Task* task = new Task(&tripThread, (void*)tripDetails);
+                tp->addTask(task);
+/*
                 pthread_t* thread = new pthread_t();
                 // Create a thread in order to calculate the path of the trip.
                 checkThread = pthread_create(thread, NULL, tripThread, (void*)tripDetails);
@@ -124,9 +128,10 @@ void ServerRun::begin() {
                     cout << "Error:unable to create thread," << checkThread << endl;
                     exit(-1);
                 }
-
+*/
                 //adding to the map:the trip ID and the thread.
-                tripThreads[ride_id] = thread;
+                taskMap[ride_id] = task;
+
 
                 // adding the ride.
                 taxiCenter->addTrip(ride);
@@ -295,7 +300,7 @@ void ServerRun::clientRun(ServerRun::ClientDetails* clientDetails) {
 
 
 // thread function for the trips.
-void *ServerRun::tripThread(void *tripDetails) {
+void ServerRun::tripThread(void *tripDetails) {
     TripDetails* t = (TripDetails*)tripDetails;
     t->server->tripCalculate(t);
 }
@@ -335,7 +340,11 @@ void ServerRun::setTaxiForClient(ClientDetails* clientDetails) {
 
 // determine when the taxi should arrive to the destination.
 int ServerRun::whenArrive(Trip *trip, int taxiType) {
-    pthread_join(*tripThreads[trip->getTripId()], NULL);
+    while (true) {
+        if (!trip->isPathEmpty()){
+            break;
+        }
+    }
     double check = ((double) trip->getPath().size()) / ((double) taxiType);
     int timeOfPath = (int) check;
 
@@ -359,7 +368,7 @@ ServerRun::~ServerRun() {
         delete(it->second);
     }
 
-    for (std::map<int, pthread_t*>::iterator it=tripThreads.begin(); it!=tripThreads.end(); ++it) {
+    for (std::map<int, Task*>::iterator it=taskMap.begin(); it!=taskMap.end(); ++it) {
         delete(it->second);
     }
 

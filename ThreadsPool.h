@@ -21,7 +21,7 @@ private:
 
 public:
     ThreadsPool(int numOfThreads);
-    static void* startTasks(void *arg);
+    //static void* startTasks(void *arg);
     void runTasks();
     void emptyPool();
     void addTask(Task* task);

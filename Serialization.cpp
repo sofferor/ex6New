@@ -16,6 +16,11 @@ void sendTrip(DetailsDriver* detailsDrivers, Trip* trip) {
     int socketId = detailsDrivers->getSocketId();
     sendTo<string>("ride", tcp, socketId);
     ifSuccess(tcp, socketId);
+    while (true) {
+        if (!trip->isPathEmpty()){
+           break;
+        }
+    }
     sendTo<Trip>(trip, tcp, socketId);
     ifSuccess(tcp, socketId);
 }

@@ -4,12 +4,12 @@
 
 #include "Task.h"
 
-Task::Task(void (*function)(void *), void *arg) : function(function), arg(arg) {
+Task::Task(void (*pFunction)(void *), void *arg) : function(pFunction), arg(arg) {
     // TODO Auto-generated constructor stub
 }
 
 void Task::execute() {
-    function(arg);
+    (*function)(arg);
 }
 
 Task::~Task() {

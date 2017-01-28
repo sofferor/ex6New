@@ -2,6 +2,7 @@
 #include "Matrix2D.h"
 #include "BFS.h"
 #include "TaxiCenter.h"
+#include "ThreadsPool.h"
 
 using namespace std;
 
@@ -19,11 +20,12 @@ private:
     pthread_mutex_t lockEnvironment;
     pthread_mutex_t lockTaxies;
     pthread_mutex_t lockList;
+    ThreadsPool* tp;
 
     //map for driverId and the thread of this driver.
     map<int, pthread_t*> clientThreads;
     //map for tripId and the thread of this trip.
-    map<int, pthread_t*> tripThreads;
+    map<int, Task*> taskMap;
 
     struct ClientDetails
     {
@@ -50,7 +52,7 @@ public:
     // running the client.
     void clientRun(ClientDetails* clientDetails);
     // thread function for the trips.
-    static void* tripThread(void* tripDetails);
+    static void tripThread(void* tripDetails);
     // calculating the trip.
     void tripCalculate(TripDetails* tripDetails);
     //setting taxi for client.

@@ -15,13 +15,15 @@ Trip::Trip(Node *start, Node *end, int rideId, double metersPassed,
                                               rideId(rideId),
                                               metersPassed(metersPassed),
                                               numOfPassengers(numOfPassengers),
-                                              tariff(tariff) {}
+                                              tariff(tariff) {
+}
 
 //Constructor for trip.
 Trip::Trip(Node *start, Node *end, int rideId, int numOfPassengers,
            double tariff)
         : start(start), end(end), rideId(rideId),
-          numOfPassengers(numOfPassengers), tariff(tariff) {}
+          numOfPassengers(numOfPassengers), tariff(tariff) {
+}
 
 //Constructor for trip.
 Trip::Trip(Node *start, Node *end, int rideId, int numOfPassengers,
@@ -31,7 +33,8 @@ Trip::Trip(Node *start, Node *end, int rideId, int numOfPassengers,
           rideId(rideId),
           numOfPassengers(numOfPassengers),
           tariff(tariff),
-          timeToStart(timeToStart) {}
+          timeToStart(timeToStart) {
+}
 
 //Constructor for trip.
 Trip::Trip() {
@@ -181,4 +184,8 @@ Node *Trip::getLastNodeInPath() {
         return(path.at(path.size() - 1));
     }
     return NULL;
+}
+
+bool Trip::isPathEmpty() {
+    return path.empty();
 }

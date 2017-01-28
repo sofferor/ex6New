@@ -12,7 +12,7 @@ private:
     void* arg;
 
 public:
-    Task(void (*function)(void*), void* arg);
+    Task(void (*pFunction)(void*), void* arg);
     void execute();
 
     virtual ~Task();

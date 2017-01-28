@@ -150,6 +150,8 @@ public:
     void deleteLastNodeInPath();
 
     Node* getLastNodeInPath();
+
+    bool isPathEmpty();
 };
 
 

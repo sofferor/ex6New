@@ -5,22 +5,22 @@
 #include <zconf.h>
 #include "ThreadsPool.h"
 
+void *startTasks(void *arg) {
+    ThreadsPool* tp = (ThreadsPool*) arg;
+    tp->runTasks();
+    return NULL;
+}
 
 ThreadsPool::ThreadsPool(int numOfThreads) : numOfThreads(numOfThreads) {
     // TODO Auto-generated constructor stub
 
+    stop = false;
     threads = new pthread_t[numOfThreads];
 
     pthread_mutex_init(&lock, NULL);
     for (int i = 0; i < numOfThreads; i++) {
         pthread_create(threads + i, NULL, startTasks, this);
     }
-}
-
-void *ThreadsPool::startTasks(void *arg) {
-    ThreadsPool* tp = (ThreadsPool*) arg;
-    tp->runTasks();
-    return NULL;
 }
 
 void ThreadsPool::runTasks() {
