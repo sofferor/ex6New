@@ -32,7 +32,7 @@ set(SOURCE_FILES
         Serialization.h Serialization.cpp
         ServerRun.cpp ServerRun.h
         ThreadsPool.cpp ThreadsPool.h
-        Task.cpp Task.h)
+        Task.cpp Task.h Recieve.cpp Recieve.h)
 
 set(CLIENT_FILES
         Point.cpp Point.h
@@ -49,7 +49,7 @@ set(CLIENT_FILES
         Trip.h Trip.cpp
         Time.cpp Time.h
         DetailsDriver.cpp DetailsDriver.h
-        Serialization.h Serialization.cpp)
+        Serialization.h Serialization.cpp Recieve.cpp Recieve.h)
 
 add_executable(client client.cpp ${CLIENT_FILES})
 add_executable(main server.cpp ${SOURCE_FILES})

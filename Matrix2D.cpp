@@ -92,7 +92,7 @@ bool Matrix2D::isInEnvironment(Node *node) {
  */
 Node* Matrix2D::getNodeInMatrix(Node* node) {
     Point* pNode = (Point*) node;
-    if (this->isInEnvironment(node)) {
+    if (isInEnvironment(node)) {
         return matrix[pNode->getX()][pNode->getY()];
     }
     return NULL;

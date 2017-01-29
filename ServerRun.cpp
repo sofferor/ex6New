@@ -360,9 +360,9 @@ int ServerRun::whenArrive(Trip *trip, int taxiType) {
 // destructor.
 ServerRun::~ServerRun() {
 
-    pthread_mutex_destroy(&this->lockEnvironment);
-    pthread_mutex_destroy(&this->lockTaxies);
-    pthread_mutex_destroy(&this->lockList);
+    pthread_mutex_destroy(&lockEnvironment);
+    pthread_mutex_destroy(&lockTaxies);
+    pthread_mutex_destroy(&lockList);
 
     for (std::map<int, pthread_t*>::iterator it=clientThreads.begin(); it!=clientThreads.end(); ++it) {
         delete(it->second);
