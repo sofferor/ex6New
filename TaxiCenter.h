@@ -63,7 +63,7 @@ public:
     void deleteTaxiById(int id);
 
     //Print the location of the driver.
-    void printDriverLocation(int id);
+    bool printDriverLocation(int id);
 
     //Get the location of the driver.
     Node* getDriverLocation(int id);

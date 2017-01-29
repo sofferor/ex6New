@@ -19,11 +19,13 @@ private:
     char comma;
     bool legal;
 
-    bool isManufacturer(int num);
+    bool isManufacturer(char c);
 
-    bool isColor(int num);
+    bool isColor(char c);
+
+    bool isInRangeOfGrid(int num);
 public:
-    Recieve(bool legal);
+    Recieve();
 
     virtual ~Recieve();
 

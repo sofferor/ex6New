@@ -5,7 +5,7 @@
 using namespace std;
 
 
-Recieve::Recieve(bool legal) : legal(legal) {}
+Recieve::Recieve() {}
 
 Recieve::~Recieve() {}
 
@@ -18,13 +18,14 @@ Matrix2D *Recieve::recieveMatrix() {
 
     // getting the grid.
     cin >> sizeGridX >> sizeGridY;
-    if (!isdigit(sizeGridX) || !isdigit(sizeGridY)) {
+    if (!isdigit(sizeGridX) || !isdigit(sizeGridY) ||
+            !isInRangeOfGrid(sizeGridX) || !isInRangeOfGrid(sizeGridY)) {
         return NULL;
     }
 
     // getting obstacles.
     cin >> numbersOfObstacles;
-    if (!isdigit(numbersOfObstacles) || numbersOfObstacles > (sizeGridX * sizeGridY)) {
+    if (!isdigit(numbersOfObstacles)) {
         return NULL;
     }
 
@@ -35,12 +36,14 @@ Matrix2D *Recieve::recieveMatrix() {
         int x, y;
         cin >> x >> comma >> y;
         if (!isdigit(x) || !isdigit(y) || comma != ',') {
+            delete(matrix2D);
             return NULL;
         }
 
         Point obstacle = Point(x, y);
         Node* node = matrix2D->getNodeInMatrix((Node*) &obstacle);
-        if (node == NULL || node->isObstacle()) {
+        if (node == NULL) {
+            delete(matrix2D);
             return NULL;
         }
 
@@ -95,7 +98,7 @@ Trip *Recieve::recieveTrip() {
     Node *start = matrix2D->getNodeInMatrix(&pStart);
     Node *end = matrix2D->getNodeInMatrix(&pEnd);
 
-    if (start == NULL || end == NULL) {
+    if (start == NULL || end == NULL || *start == end) {
         return NULL;
     }
 
@@ -105,7 +108,7 @@ Trip *Recieve::recieveTrip() {
 
 Taxi *Recieve::recieveTaxi() {
     int taxi_id, taxi_type;
-    char manufacturer, color;
+    char manufacturerer, colorOfTaxi;
 
     // getting details.
     cin >> taxi_id >> comma;
@@ -116,8 +119,8 @@ Taxi *Recieve::recieveTaxi() {
     if (!isdigit(taxi_type) || comma != ',') {
         return NULL;
     }
-    cin >> manufacturer >> comma >> color;
-    if (comma != ',' || !isManufacturer(manufacturer) || !isColor(color)) {
+    cin >> manufacturerer >> comma >> colorOfTaxi;
+    if (comma != ',' || !isManufacturer(manufacturerer) || !isColor(colorOfTaxi)) {
         return NULL;
     }
 
@@ -126,12 +129,12 @@ Taxi *Recieve::recieveTaxi() {
     // taxi center.
     switch (taxi_type) {
         case 1: {
-            taxi = new TaxiStandard(taxi_id, color, manufacturer);\
+            taxi = new TaxiStandard(taxi_id, colorOfTaxi, manufacturerer);
             break;
         }
 
         case 2: {
-            taxi = new TaxiLuxury(taxi_id, color, manufacturer);\
+            taxi = new TaxiLuxury(taxi_id, colorOfTaxi, manufacturerer);
         }
         default: {
             return NULL;
@@ -141,12 +144,16 @@ Taxi *Recieve::recieveTaxi() {
     return taxi;
 }
 
-bool Recieve::isManufacturer(int num) {
-    return num >= 0 && num <= 3;
+bool Recieve::isManufacturer(char c) {
+    return c == 'H' || c == 'S' || c == 'T' || c == 'F';
 }
 
-bool Recieve::isColor(int num) {
-    return num >= 0 && num <= 4;
+bool Recieve::isColor(char c) {
+    return c == 'R' || c == 'B' || c == 'G' || c == 'P' || c == 'W';
+}
+
+bool Recieve::isInRangeOfGrid(int num) {
+    return num > 0;
 }
 
 

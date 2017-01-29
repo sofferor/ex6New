@@ -58,7 +58,7 @@ void TaxiCenter::addTrip(Trip *trip) {
 }
 
 //Print the location of the driver.
-void TaxiCenter::printDriverLocation(int id) {
+bool TaxiCenter::printDriverLocation(int id) {
     for (int i = 0; i < detailsDrivers.size(); i++) {
         if (detailsDrivers.at(i)->getDriverId() == id) {
             detailsDrivers.at(i)->pushMission(4);
@@ -67,8 +67,12 @@ void TaxiCenter::printDriverLocation(int id) {
             while (detailsDrivers.at(i)->getMissionNoDelete() != -1) {
                 usleep(10000);
             }
+            //the driver was found.
+            return true;
         }
     }
+    //the driver was not found.
+    return false;
 }
 
 //Get the location of the driver.
@@ -133,10 +137,6 @@ void TaxiCenter::setAll() {
             //pass on the ones which are in the middle of trip.
             if (!detailsSortedByArrivedTime.at(k)->isAvailable()) {
                 continue;
-            }
-
-            if (clock->getTime() == 8) {
-                //cout << "           time: 8 in the for, in the for after if " << endl;
             }
 
             detailsSortedByArrivedTime.at(k)->pushTripId(trips.at(i)->getTripId());
