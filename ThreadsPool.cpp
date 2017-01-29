@@ -48,5 +48,6 @@ void ThreadsPool::addTask(Task *task) {
 }
 
 ThreadsPool::~ThreadsPool() {
+    pthread_mutex_destroy(&lock);
     delete[] threads;
 }
