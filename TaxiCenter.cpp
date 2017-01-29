@@ -120,7 +120,14 @@ void TaxiCenter::setAll() {
         }
         //now all the drivers arrived to their destination.
 
-        //only here delete the trip.
+
+        //waiting for the trip to be calculated
+        while (!trips.at(i)->isDoneCalculatePath()) {
+            usleep(10000);
+        }
+
+        //only here delete the trip if there time has passed(they have been transfared to
+        // the client alreasy) or there is no path to them - there path is empty.
         if (trips.at(i)->getTimeToStart() < clock->getTime() || trips.at(i)->isPathEmpty()) {
             trips.erase(trips.begin() + i);
             i--;

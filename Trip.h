@@ -22,7 +22,7 @@ private:
     double tariff;
     vector<Node*> path;
     int timeToStart;
-    bool reachable;
+    bool doneCalculatePath;
 
 
     friend class boost::serialization::access;
@@ -38,6 +38,7 @@ private:
         ar & tariff;
         ar & path;
         ar & timeToStart;
+        ar & doneCalculatePath;
     }
 
 public:
@@ -153,6 +154,10 @@ public:
     Node* getLastNodeInPath();
 
     bool isPathEmpty();
+
+    bool isDoneCalculatePath() const;
+
+    void setDoneCalculatePath(bool doneCalculatePath);
 };
 
 

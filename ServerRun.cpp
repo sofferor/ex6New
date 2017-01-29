@@ -277,6 +277,7 @@ void ServerRun::tripCalculate(ServerRun::TripDetails *tripDetails) {
     }
     matrix2D->initializeEnvironment();
     pthread_mutex_unlock(&this->lockEnvironment);
+    tripDetails->trip->setDoneCalculatePath(true);
 }
 
 //setting taxi for client.
@@ -305,10 +306,14 @@ void ServerRun::setTaxiForClient(ClientDetails* clientDetails) {
 
 // determine when the taxi should arrive to the destination.
 int ServerRun::whenArrive(Trip *trip, int taxiType) {
-    while (true) {
-        if (!trip->isPathEmpty()){
-            break;
-        }
+    //waiting for the trip to be calculated
+    while (!trip->isDoneCalculatePath()) {
+        usleep(10000);
+    }
+    //if path is emty - means there is no path and the trip was supposed to be erased-problem
+    if (trip->isPathEmpty()){
+        cout << "ERROR: ServerRun::whenArrive - SHOULD NOT REACH HERE." << endl;
+        return -1;
     }
     double check = ((double) trip->getPath().size()) / ((double) taxiType);
     int timeOfPath = (int) check;

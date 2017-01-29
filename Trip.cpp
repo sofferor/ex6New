@@ -17,6 +17,7 @@ Trip::Trip(Node *start, Node *end, int rideId, double metersPassed,
                                               numOfPassengers(numOfPassengers),
                                               tariff(tariff) {
     path = NULL;
+    doneCalculatePath = false;
 }
 
 //Constructor for trip.
@@ -25,6 +26,7 @@ Trip::Trip(Node *start, Node *end, int rideId, int numOfPassengers,
         : start(start), end(end), rideId(rideId),
           numOfPassengers(numOfPassengers), tariff(tariff) {
     path = NULL;
+    doneCalculatePath = false;
 }
 
 //Constructor for trip.
@@ -37,6 +39,7 @@ Trip::Trip(Node *start, Node *end, int rideId, int numOfPassengers,
           tariff(tariff),
           timeToStart(timeToStart) {
     path = NULL;
+    doneCalculatePath = false;
 }
 
 //Constructor for trip.
@@ -44,6 +47,7 @@ Trip::Trip() {
     start = NULL;
     end = NULL;
     path = NULL;
+    doneCalculatePath = false;
 }
 
 /**
@@ -192,4 +196,12 @@ Node *Trip::getLastNodeInPath() {
 
 bool Trip::isPathEmpty() {
     return path.empty();
+}
+
+bool Trip::isDoneCalculatePath() const {
+    return doneCalculatePath;
+}
+
+void Trip::setDoneCalculatePath(bool doneCalculatePath) {
+    Trip::doneCalculatePath = doneCalculatePath;
 }
