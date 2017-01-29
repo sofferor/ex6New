@@ -295,6 +295,7 @@ void ServerRun::clientRun(ServerRun::ClientDetails* clientDetails) {
     } while (mission != 7);
 
     sendTo<string>("close", tcp, detailsDriver->getSocketId());
+    pthread_exit(NULL);
 
 }
 
