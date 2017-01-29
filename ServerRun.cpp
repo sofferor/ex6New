@@ -385,6 +385,8 @@ ServerRun::~ServerRun() {
     if (matrix2D != NULL) {
         delete (matrix2D);
     }
+
+    tp->emptyPool();
     if (tp != NULL) {
         delete (tp);
     }
