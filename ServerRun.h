@@ -3,6 +3,7 @@
 #include "BFS.h"
 #include "TaxiCenter.h"
 #include "ThreadsPool.h"
+#include "Recieve.h"
 
 using namespace std;
 
@@ -11,6 +12,7 @@ using namespace std;
 
 class ServerRun {
 private:
+    Recieve* recieve;
     Matrix2D* matrix2D;
     BFS bfs;
     TaxiCenter* taxiCenter;
