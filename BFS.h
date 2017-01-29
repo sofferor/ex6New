@@ -25,7 +25,7 @@ public:
      * @param start Node*
      * @param end Node*
      */
-    void findPath(Environment* environment, Node* start, Node* end);
+    bool findPath(Environment* environment, Node* start, Node* end);
 };
 
 

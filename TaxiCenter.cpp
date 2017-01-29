@@ -121,7 +121,7 @@ void TaxiCenter::setAll() {
         //now all the drivers arrived to their destination.
 
         //only here delete the trip.
-        if (trips.at(i)->getTimeToStart() < clock->getTime()) {
+        if (trips.at(i)->getTimeToStart() < clock->getTime() || trips.at(i)->isPathEmpty()) {
             trips.erase(trips.begin() + i);
             i--;
             continue;
@@ -142,9 +142,12 @@ void TaxiCenter::setAll() {
             detailsSortedByArrivedTime.at(k)->pushTripId(trips.at(i)->getTripId());
             detailsSortedByArrivedTime.at(k)->pushMission(3);
             set();
+
+            //if the driver is in position of the start trip - he got the trip and not available.
             if (detailsSortedByArrivedTime.at(k)->isAvailable()) {
                 continue;
             }
+            //not available - means he got the trip.
             break;
 
             /*

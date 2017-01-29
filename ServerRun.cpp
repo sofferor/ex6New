@@ -272,8 +272,9 @@ void ServerRun::tripThread(void *tripDetails) {
 // calculating the trip.
 void ServerRun::tripCalculate(ServerRun::TripDetails *tripDetails) {
     pthread_mutex_lock(&this->lockEnvironment);
-    bfs.findPath(matrix2D, tripDetails->trip->getStart(), tripDetails->trip->getEnd());
-    tripDetails->trip->setPath(matrix2D->getPath(tripDetails->trip->getEnd()));
+    if (bfs.findPath(matrix2D, tripDetails->trip->getStart(), tripDetails->trip->getEnd())) {
+        tripDetails->trip->setPath(matrix2D->getPath(tripDetails->trip->getEnd()));
+    }
     matrix2D->initializeEnvironment();
     pthread_mutex_unlock(&this->lockEnvironment);
 }

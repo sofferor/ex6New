@@ -22,6 +22,7 @@ private:
     double tariff;
     vector<Node*> path;
     int timeToStart;
+    bool reachable;
 
 
     friend class boost::serialization::access;
