@@ -1,4 +1,3 @@
-#include <queue>
 #include "BFS.h"
 
 
@@ -35,7 +34,8 @@ bool BFS::findPath(Environment* environment, Node* start, Node* end) {
             neighbours.front()->setDaddy(current);
             neighbours.front()->setVisited(true);
             if (*neighbours.front() == end) {
-                return;
+                clean(&neighbours, &path, &toClearAllVisited);
+                return true;
             }
             path.push(neighbours.front());
             neighbours.erase(neighbours.begin());
@@ -43,6 +43,7 @@ bool BFS::findPath(Environment* environment, Node* start, Node* end) {
 
         //check if the path is empty - means that there is no path.
         if (path.empty()) {
+            clean(&neighbours, &path, &toClearAllVisited);
             return false;
         }
 
@@ -51,11 +52,22 @@ bool BFS::findPath(Environment* environment, Node* start, Node* end) {
         current = path.front();
     }
 
-    //Clear all the nodes' member - visited.
-    while (toClearAllVisited.size() > 0) {
-        toClearAllVisited.front()->setVisited(false);
-        toClearAllVisited.pop();
-    }
+    clean(&neighbours, &path, &toClearAllVisited);
 
     return true;
+}
+
+void BFS::clean(vector<Node *> *nbr, queue<Node *> *path,
+                queue<Node *> *toClearAllVisited) {
+    while (toClearAllVisited->size() > 0) {
+        toClearAllVisited->front()->setVisited(false);
+        toClearAllVisited->pop();
+    }
+
+    while (path->size() > 0) {
+        path->front()->setVisited(false);
+        path->pop();
+    }
+
+    nbr->clear();
 }
