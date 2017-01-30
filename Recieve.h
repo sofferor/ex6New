@@ -16,20 +16,28 @@ using namespace std;
 class Recieve {
 private:
     Matrix2D* matrix2D;
-    char comma;
-    bool legal;
+    TaxiCenter* taxiCenter;
 
     bool isManufacturer(char c);
 
     bool isColor(char c);
 
+    static bool isMaritalStatus(char c);
+
     bool isInRangeOfGrid(int num);
 
-    static vector<string> split(const string &s, const string &dell);
+    //static vector<string> split(const string &s, const string &dell);
 
-    static bool checkIfStringIsNumber(const string &s);
+    static bool isDouble(const string& s);
+
+    template<typename Out>
+    static void split(const std::string &s, char delim, Out result);
+
+    static vector<std::string> split(const std::string &s, char delim);
 public:
     Recieve();
+
+    Recieve(TaxiCenter *taxiCenter);
 
     virtual ~Recieve();
 
@@ -40,6 +48,10 @@ public:
     Trip* recieveTrip();
 
     Taxi* recieveTaxi();
+
+    static bool isInt(const string& s);
+
+    static Driver* recieveDriver();
 };
 
 

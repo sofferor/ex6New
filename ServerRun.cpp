@@ -12,9 +12,9 @@
 
 // constructor.
 ServerRun::ServerRun(Tcp *tcp) : tcp(tcp) {
-    recieve = new Recieve();
     bfs = BFS();
     taxiCenter = new TaxiCenter();
+    recieve = new Recieve(taxiCenter);
     clock = new Time();
     taxiCenter->setClock(clock);
     selection = -1;
@@ -39,19 +39,32 @@ void ServerRun::begin() {
     char dummy;
     int descriptor = -1;
     int checkThread = 1;
+    string s;
 
     do {
-        cin >> selection;
-        if (!isdigit(selection)) {
+        s.clear();
+        getline(cin, s);
+        boost::trim(s);
+        if (!Recieve::isInt(s)) {
             recieve->printInvalid();
             continue;
         }
+        selection = stoi(s);
+
         switch (selection) {
             // insert driver
             case 1: {
 
+                //getting num of driver.
                 int numOfDrivers;
-                cin >> numOfDrivers;
+                s.clear();
+                getline(cin, s);
+                boost::trim(s);
+                if (!Recieve::isInt(s)) {
+                    recieve->printInvalid();
+                    continue;
+                }
+                numOfDrivers = stoi(s);
 
                 while (numOfDrivers > 0) {
                     descriptor = tcp->acceptClient();
@@ -132,7 +145,15 @@ void ServerRun::begin() {
                 // printing driver location
             case 4: {
                 int driverId;
-                cin >> driverId;
+
+                s.clear();
+                getline(cin, s);
+                boost::trim(s);
+                if (!Recieve::isInt(s)) {
+                    recieve->printInvalid();
+                    continue;
+                }
+                driverId = stoi(s);
 
                 if (!taxiCenter->printDriverLocation(driverId)) {
                     recieve->printInvalid();

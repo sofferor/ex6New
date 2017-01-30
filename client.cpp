@@ -3,6 +3,7 @@
 #include "Driver.h"
 #include "Point.h"
 #include "Serialization.h"
+#include "Recieve.h"
 
 using namespace std;
 
@@ -15,12 +16,18 @@ bool takeCareIfTripDone(Driver* driver, Tcp* udp);
 
 //main for the client.
 int main(int argc, char *argv[]) {
+    Driver* d = Recieve::recieveDriver();
+    //check if the driver was legal.
+    if (d == NULL) {
+        return 0;
+    }
+
     //std::cout << "Hello, from client" << std::endl;
     Tcp* tcp = new Tcp(0, atoi(argv[2]));
     tcp->setIp_address(argv[1]);
     tcp->initialize();
 
-    Driver* d = makeDriver();
+
     sendTo<int>(d->getId(), tcp);
 
     char buffer[1024];
@@ -39,6 +46,7 @@ int main(int argc, char *argv[]) {
     }
     return 0;
 }
+
 
 //make a driver.
 Driver* makeDriver() {
