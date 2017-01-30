@@ -5,12 +5,14 @@
 #include <zconf.h>
 #include "ThreadsPool.h"
 
+//start tasks.
 void *startTasks(void *arg) {
     ThreadsPool* tp = (ThreadsPool*) arg;
     tp->runTasks();
     return NULL;
 }
 
+//Constructor
 ThreadsPool::ThreadsPool(int numOfThreads) : numOfThreads(numOfThreads) {
     // TODO Auto-generated constructor stub
 
@@ -23,6 +25,7 @@ ThreadsPool::ThreadsPool(int numOfThreads) : numOfThreads(numOfThreads) {
     }
 }
 
+//run tasks.
 void ThreadsPool::runTasks() {
     while (!stop) {
         pthread_mutex_lock(&lock);
@@ -39,19 +42,23 @@ void ThreadsPool::runTasks() {
     pthread_exit(NULL);
 }
 
+//empty pool.
 void ThreadsPool::emptyPool() {
     stop = true;
 }
 
+//add task.
 void ThreadsPool::addTask(Task *task) {
     tasks.push(task);
 }
 
+//distractor.
 ThreadsPool::~ThreadsPool() {
     pthread_mutex_destroy(&lock);
     delete[] threads;
 }
 
+//join.
 void ThreadsPool::join() {
     for (int i = 0; i < numOfThreads; ++i) {
         pthread_join(threads[i], NULL);

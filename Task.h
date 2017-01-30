@@ -5,16 +5,20 @@
 #ifndef EX6_TASK_H
 #define EX6_TASK_H
 
-
+//class for task.
 class Task {
 private:
     void (*function)(void*);
     void* arg;
 
 public:
+    //constructor.
     Task(void (*pFunction)(void*), void* arg);
+
+    //execute.
     void execute();
 
+    //distractor.
     virtual ~Task();
 };
 

@@ -11,6 +11,7 @@
 
 using namespace std;
 
+//class for thread pool.
 class ThreadsPool {
 private:
     queue<Task*> tasks;
@@ -20,13 +21,24 @@ private:
     pthread_mutex_t lock;
 
 public:
+    //Constructor
     ThreadsPool(int numOfThreads);
+
     //static void* startTasks(void *arg);
+
+    //run tasks.
     void runTasks();
+
+    //empty pool.
     void emptyPool();
+
+    //add task.
     void addTask(Task* task);
+
+    //join.
     void join();
 
+    //distractor.
     virtual ~ThreadsPool();
 };
 

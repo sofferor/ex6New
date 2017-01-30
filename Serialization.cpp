@@ -34,12 +34,14 @@ void sendTaxi(DetailsDriver* detailsDrivers, Taxi* taxi) {
     ifSuccess(tcp, socketId);
 }
 
+//send move.
 string sendMove(DetailsDriver* dd) {
     sendTo<string>("move", dd->getTcp(), dd->getSocketId());
     string ifDone = receive<string>(1, dd->getTcp(), dd->getSocketId());
     return ifDone;
 }
 
+//if success.
 void ifSuccess(Tcp* tcp, int socketId) {
     string ifReceive;
     ifReceive = receive<string>(1, tcp, socketId);

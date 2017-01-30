@@ -91,8 +91,10 @@ void sendTrip(DetailsDriver* detailsDrivers, Trip* trip);
 //send taxi.
 void sendTaxi(DetailsDriver* detailsDrivers, Taxi* taxi);
 
+//send move.
 string sendMove(DetailsDriver* dd);
 
+//if success.
 void ifSuccess(Tcp* tcp, int socketId);
 
 #endif //PRACTICE6_SERIALIZATION_H
