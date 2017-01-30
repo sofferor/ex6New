@@ -391,6 +391,7 @@ ServerRun::~ServerRun() {
     }
 
     tp->emptyPool();
+    tp->join();
     if (tp != NULL) {
         delete (tp);
     }
