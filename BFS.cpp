@@ -57,6 +57,7 @@ bool BFS::findPath(Environment* environment, Node* start, Node* end) {
     return true;
 }
 
+//clean.
 void BFS::clean(vector<Node *> *nbr, queue<Node *> *path, queue<Node *> *toClearAllVisited) {
     //Clear all the nodes' member - visited.
     while (toClearAllVisited->size() > 0) {

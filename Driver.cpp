@@ -265,7 +265,7 @@ void Driver::moveOneStep() {
         //trip->getPath().at(trip->getPath().size() - 1) = NULL;
     }*/
 }
-
+// delete from path.
 void Driver::deletePathFromClient() {
     if (trip != NULL) {
         trip->deleteFromPathClient();
