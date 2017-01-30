@@ -29,6 +29,9 @@ ServerRun::ServerRun(Tcp *tcp) : tcp(tcp) {
 void ServerRun::initialize() {
     do {
         matrix2D = recieve->recieveMatrix();
+        if (matrix2D == NULL) {
+            recieve->printInvalid();
+        }
     } while (matrix2D == NULL);
 
     tp = new ThreadsPool(5);
