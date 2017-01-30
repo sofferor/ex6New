@@ -64,7 +64,7 @@ Matrix2D *Recieve::recieveMatrix() {
 
         getline(cin, sPoint);
         boost::trim(sPoint);
-        parts = split(sGrid, ' ');
+        parts = split(sPoint, ',');
 
         if (parts.size() != 2) {
             delete(matrix2D);

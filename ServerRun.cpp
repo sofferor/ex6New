@@ -29,6 +29,9 @@ ServerRun::ServerRun(Tcp *tcp) : tcp(tcp) {
 void ServerRun::initialize() {
     do {
         matrix2D = recieve->recieveMatrix();
+        if (matrix2D == NULL) {
+            recieve->printInvalid();
+        }
     } while (matrix2D == NULL);
 
     tp = new ThreadsPool(5);
@@ -165,6 +168,11 @@ void ServerRun::begin() {
                 taxiCenter->set();
                 taxiCenter->setAll();
                 taxiCenter->updateTime();
+                break;
+            }
+
+            case 7: {
+                break;
             }
 
             default: {
