@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <queue>
 #include "Node.h"
 #include "Environment.h"
 
@@ -13,6 +14,8 @@ using namespace std;
  * for finding the pass between 2 nodes using the BFS algorithm.
  */
 class BFS {
+private:
+    void clean(vector<Node*>* nbr, queue<Node*>* path, queue<Node*>* toClearAllVisited);
 public:
     /**
      * constructor for BFS.

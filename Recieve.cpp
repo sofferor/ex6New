@@ -1,6 +1,7 @@
 
 #include "Recieve.h"
 #include "Point.h"
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
 
@@ -113,12 +114,14 @@ Trip *Recieve::recieveTrip() {
 
     string s;
     getline(cin, s);
-    vector<string> parts = split(s, ",");
+    boost::trim(s);
+    vector<string> parts = split(s, ",")
 
     if (parts.size() != 8) {
         return NULL;
     }
 
+    if (!isInt(parts[0]) && )
 
     //getting details.
     cin >> ride_id >> comma;
