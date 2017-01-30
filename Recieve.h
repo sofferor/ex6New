@@ -24,6 +24,10 @@ private:
     bool isColor(char c);
 
     bool isInRangeOfGrid(int num);
+
+    static vector<string> split(const string &s, const string &dell);
+
+    static bool checkIfStringIsNumber(const string &s);
 public:
     Recieve();
 
