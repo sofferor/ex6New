@@ -176,6 +176,7 @@ int Trip::getTripId() {
     return this->rideId;
 }
 
+//delete last node in path.
 void Trip::deleteLastNodeInPath() {
     if (path.size() != 0 && path.at(path.size() - 1) != NULL) {
         delete(path.at(path.size() - 1));
@@ -183,6 +184,7 @@ void Trip::deleteLastNodeInPath() {
     }
 }
 
+//get last node in path.
 Node *Trip::getLastNodeInPath() {
     if (path.size() != 0 && path.at(path.size() - 1) != NULL) {
         return(path.at(path.size() - 1));
@@ -190,14 +192,17 @@ Node *Trip::getLastNodeInPath() {
     return NULL;
 }
 
+//check if path is empty.
 bool Trip::isPathEmpty() {
     return path.empty();
 }
 
+//check if done calculate path.
 bool Trip::isDoneCalculatePath() const {
     return doneCalculatePath;
 }
 
+//set done calculate trip.
 void Trip::setDoneCalculatePath(bool doneCalculatePath) {
     Trip::doneCalculatePath = doneCalculatePath;
 }

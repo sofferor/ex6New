@@ -149,14 +149,19 @@ public:
     //Delete from client.
     void deleteFromPathClient();
 
+    //delete last node in path.
     void deleteLastNodeInPath();
 
+    //get last node in path.
     Node* getLastNodeInPath();
 
+    //check if path is empty.
     bool isPathEmpty();
 
+    //check if done calculate path.
     bool isDoneCalculatePath() const;
 
+    //set done calculate trip.
     void setDoneCalculatePath(bool doneCalculatePath);
 };
 
