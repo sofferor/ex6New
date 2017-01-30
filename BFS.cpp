@@ -21,7 +21,7 @@ bool BFS::findPath(Environment* environment, Node* start, Node* end) {
     start->setDaddy(NULL);
 
     //if the start and the end points are the same.
-    if (*current !=  end) {
+    if (*current ==  end) {
         return false;
     }
 
@@ -34,7 +34,8 @@ bool BFS::findPath(Environment* environment, Node* start, Node* end) {
             neighbours.front()->setDaddy(current);
             neighbours.front()->setVisited(true);
             if (*neighbours.front() == end) {
-                clean(&neighbours, &path, &toClearAllVisited);
+                //delete all
+                clean(&neighbours, &path, &toClearAllVisited);//////to see if ok
                 return true;
             }
             path.push(neighbours.front());
@@ -43,7 +44,7 @@ bool BFS::findPath(Environment* environment, Node* start, Node* end) {
 
         //check if the path is empty - means that there is no path.
         if (path.empty()) {
-            clean(&neighbours, &path, &toClearAllVisited);
+            clean(&neighbours, &path, &toClearAllVisited);//////to see if ok
             return false;
         }
 
@@ -52,18 +53,18 @@ bool BFS::findPath(Environment* environment, Node* start, Node* end) {
         current = path.front();
     }
 
-    clean(&neighbours, &path, &toClearAllVisited);
-
+    clean(&neighbours, &path, &toClearAllVisited);//////to see if ok
     return true;
 }
 
-void BFS::clean(vector<Node *> *nbr, queue<Node *> *path,
-                queue<Node *> *toClearAllVisited) {
+void BFS::clean(vector<Node *> *nbr, queue<Node *> *path, queue<Node *> *toClearAllVisited) {
+    //Clear all the nodes' member - visited.
     while (toClearAllVisited->size() > 0) {
         toClearAllVisited->front()->setVisited(false);
         toClearAllVisited->pop();
     }
 
+    //Clear all the nodes' member - visited.
     while (path->size() > 0) {
         path->front()->setVisited(false);
         path->pop();
@@ -71,3 +72,4 @@ void BFS::clean(vector<Node *> *nbr, queue<Node *> *path,
 
     nbr->clear();
 }
+
