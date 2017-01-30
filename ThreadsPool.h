@@ -25,6 +25,7 @@ public:
     void runTasks();
     void emptyPool();
     void addTask(Task* task);
+    void join();
 
     virtual ~ThreadsPool();
 };

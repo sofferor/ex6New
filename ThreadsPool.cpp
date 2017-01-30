@@ -51,3 +51,9 @@ ThreadsPool::~ThreadsPool() {
     pthread_mutex_destroy(&lock);
     delete[] threads;
 }
+
+void ThreadsPool::join() {
+    for (int i = 0; i < numOfThreads; ++i) {
+        pthread_join(threads[i], NULL);
+    }
+}
