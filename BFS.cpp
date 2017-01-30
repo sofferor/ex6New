@@ -21,7 +21,7 @@ bool BFS::findPath(Environment* environment, Node* start, Node* end) {
     start->setDaddy(NULL);
 
     //if the start and the end points are the same.
-    if (*current !=  end) {
+    if (*current ==  end) {
         return false;
     }
 

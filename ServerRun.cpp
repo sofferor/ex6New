@@ -165,6 +165,11 @@ void ServerRun::begin() {
                 taxiCenter->set();
                 taxiCenter->setAll();
                 taxiCenter->updateTime();
+                break;
+            }
+
+            case 7: {
+                break;
             }
 
             default: {
