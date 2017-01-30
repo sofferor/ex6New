@@ -198,6 +198,7 @@ public:
     //move one step.
     void moveOneStep();
 
+    //delete from path.
     void deletePathFromClient();
 };
 

@@ -5,16 +5,21 @@
 using namespace std;
 
 
+// constructor
 Recieve::Recieve() {}
 
+// constructor
 Recieve::~Recieve() {}
 
+// constructor
 Recieve::Recieve(TaxiCenter *taxiCenter) : taxiCenter(taxiCenter) {}
 
+// print Invalid
 void Recieve::printInvalid() {
     cout << "-1" << endl;
 }
 
+// recieve Matrix
 Matrix2D *Recieve::recieveMatrix() {
     int sizeGridX, sizeGridY, numbersOfObstacles;
 
@@ -91,59 +96,9 @@ Matrix2D *Recieve::recieveMatrix() {
     return matrix2D;
 }
 
-/*Trip *Recieve::recieveTrip() {
-    int ride_id, x_start, y_start, x_end, y_end,
-            num_passengers, startTime;
-    double tariff;
 
-    //getting details.
-    cin >> ride_id >> comma;
-    if (!isdigit(ride_id) || comma != ',') {
-        return NULL;
-    }
-    cin >> x_start >> comma;
-    if (!isdigit(x_start) || comma != ',') {
-        return NULL;
-    }
-    cin >> y_start >> comma;
-    if (!isdigit(y_start) || comma != ',') {
-        return NULL;
-    }
-    cin >> x_end >> comma;
-    if (!isdigit(x_end) || comma != ',') {
-        return NULL;
-    }
-    cin >> y_end >> comma;
-    if (!isdigit(y_end) || comma != ',') {
-        return NULL;
-    }
-    cin >> num_passengers >> comma;
-    if (!isdigit(num_passengers) || num_passengers < 0 || comma != ',') {
-        return NULL;
-    }
-    cin >> tariff >> comma >> startTime;
-    if (!isdigit(startTime) || startTime < 1 || comma != ',') {
-        return NULL;
-    }
-    if (cin.fail()) {
-        cin.clear();
-        cin.ignore();
-        return NULL;
-    }
 
-    Point pStart(x_start, y_start);
-    Point pEnd(x_end, y_end);
-    Node *start = matrix2D->getNodeInMatrix(&pStart);
-    Node *end = matrix2D->getNodeInMatrix(&pEnd);
-
-    if (start == NULL || end == NULL || *start == end) {
-        return NULL;
-    }
-
-    return new Trip(start, end, ride_id, num_passengers,
-                          tariff, startTime);
-}*/
-
+// recieve Trip
 Trip *Recieve::recieveTrip() {
     int ride_id, x_start, y_start, x_end, y_end,
             num_passengers, startTime;
@@ -197,6 +152,7 @@ Trip *Recieve::recieveTrip() {
                     tariff, startTime);
 }
 
+//recieve Taxi
 Taxi *Recieve::recieveTaxi() {
     int taxi_id, taxi_type;
     char manufacturerer, colorOfTaxi;
@@ -256,47 +212,35 @@ Taxi *Recieve::recieveTaxi() {
     return taxi;
 }
 
+// is manufacturer.
 bool Recieve::isManufacturer(char c) {
     return c == 'H' || c == 'S' || c == 'T' || c == 'F';
 }
 
+//is color
 bool Recieve::isColor(char c) {
     return c == 'R' || c == 'B' || c == 'G' || c == 'P' || c == 'W';
 }
 
+//is marital status
 bool Recieve::isMaritalStatus(char c) {
     return c == 'S' || c == 'M' || c == 'W' || c == 'D';
 }
 
+// is in range of grid
 bool Recieve::isInRangeOfGrid(int num) {
     return num > 0;
 }
 
-/*
-//Split a string to parts in vector as the dell string is the seperate.
-//from stackoverflow.
-vector<string> Recieve::split(const string &s, const string &dell) {
-    vector<string> parts;
-    int index = 0, lastIndex = 0;
-    do{
-        index = s.find(dell, lastIndex);
-        if (index < 0) {
-            index = s.length();
-        }
-        parts.push_back(s.substr(lastIndex, index - lastIndex));
-        lastIndex = index + dell.length();
-    } while (index < s.length() && lastIndex < s.length());
-    return parts;
-}*/
 
-//from stackoverflow.
+//from stackoverflow. is int
 bool Recieve::isInt(const string& s) {
     string::const_iterator it = s.begin();
     while (it != s.end() && std::isdigit(*it)) ++it;
     return !s.empty() && it == s.end();
 }
 
-//from stackoverflow.
+//from stackoverflow. is double
 bool Recieve::isDouble(const string& s) {
     istringstream iss(s);
     double d;
@@ -304,7 +248,7 @@ bool Recieve::isDouble(const string& s) {
     return iss >> d && !(iss >> c);
 }
 
-//from stackoverflow.
+//from stackoverflow. split
 template<typename Out>
 void Recieve::split(const std::string &s, char delim, Out result) {
     stringstream ss;
@@ -315,13 +259,13 @@ void Recieve::split(const std::string &s, char delim, Out result) {
     }
 }
 
-//from stackoverflow.
+//from stackoverflow. split
 vector<string> Recieve::split(const std::string &s, char delim) {
     vector<string> elems;
     split(s, delim, back_inserter(elems));
     return elems;
 }
-
+// receive driver
 Driver *Recieve::recieveDriver() {
     int driver_id, age, xp, vehicle_id;
     char status;
