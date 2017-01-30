@@ -190,7 +190,7 @@ Trip *Recieve::recieveTrip() {
 
     //check if the TRIP id is already exist.
     Trip* trip = taxiCenter->getTripByid(ride_id);
-    if (trip == NULL) {
+    if (trip != NULL) {
         return NULL;
     }
 
@@ -232,7 +232,7 @@ Taxi *Recieve::recieveTaxi() {
 
     //check if the taxi id is already exist.
     Taxi* taxi = taxiCenter->getTaxiById(taxi_id);
-    if (taxi == NULL) {
+    if (taxi != NULL) {
         return NULL;
     }
 
