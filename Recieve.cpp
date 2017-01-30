@@ -53,7 +53,7 @@ Matrix2D *Recieve::recieveMatrix() {
     return matrix2D;
 }
 
-Trip *Recieve::recieveTrip() {
+/*Trip *Recieve::recieveTrip() {
     int ride_id, x_start, y_start, x_end, y_end,
             num_passengers, startTime;
     double tariff;
@@ -104,6 +104,68 @@ Trip *Recieve::recieveTrip() {
 
     return new Trip(start, end, ride_id, num_passengers,
                           tariff, startTime);
+}*/
+
+Trip *Recieve::recieveTrip() {
+    int ride_id, x_start, y_start, x_end, y_end,
+            num_passengers, startTime;
+    double tariff;
+
+    string s;
+    getline(cin, s);
+    vector<string> parts = split(s, ",");
+
+    if (parts.size() != 8) {
+        return NULL;
+    }
+
+
+    //getting details.
+    cin >> ride_id >> comma;
+    if (!isdigit(ride_id) || comma != ',') {
+        return NULL;
+    }
+    cin >> x_start >> comma;
+    if (!isdigit(x_start) || comma != ',') {
+        return NULL;
+    }
+    cin >> y_start >> comma;
+    if (!isdigit(y_start) || comma != ',') {
+        return NULL;
+    }
+    cin >> x_end >> comma;
+    if (!isdigit(x_end) || comma != ',') {
+        return NULL;
+    }
+    cin >> y_end >> comma;
+    if (!isdigit(y_end) || comma != ',') {
+        return NULL;
+    }
+    cin >> num_passengers >> comma;
+    if (!isdigit(num_passengers) || num_passengers < 0 || comma != ',') {
+        return NULL;
+    }
+    cin >> tariff >> comma >> startTime;
+    if (!isdigit(startTime) || startTime < 1 || comma != ',') {
+        return NULL;
+    }
+    if (cin.fail()) {
+        cin.clear();
+        cin.ignore();
+        return NULL;
+    }
+
+    Point pStart(x_start, y_start);
+    Point pEnd(x_end, y_end);
+    Node *start = matrix2D->getNodeInMatrix(&pStart);
+    Node *end = matrix2D->getNodeInMatrix(&pEnd);
+
+    if (start == NULL || end == NULL || *start == end) {
+        return NULL;
+    }
+
+    return new Trip(start, end, ride_id, num_passengers,
+                    tariff, startTime);
 }
 
 Taxi *Recieve::recieveTaxi() {
@@ -154,6 +216,25 @@ bool Recieve::isColor(char c) {
 
 bool Recieve::isInRangeOfGrid(int num) {
     return num > 0;
+}
+
+//Split a string to parts in vector as the dell string is the seperate.
+vector<string> Recieve::split(const string &s, const string &dell) {
+    vector<string> parts;
+    int index = 0, lastIndex = 0;
+    do{
+        index = s.find(dell, lastIndex);
+        if (index < 0) {
+            index = s.length();
+        }
+        parts.push_back(s.substr(lastIndex, index - lastIndex));
+        lastIndex = index + dell.length();
+    } while (index < s.length() && lastIndex < s.length());
+    return parts;
+}
+
+bool Recieve::checkIfStringIsNumber(const string &s) {
+    return false;
 }
 
 
